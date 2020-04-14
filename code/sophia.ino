@@ -248,10 +248,8 @@ String executeCommandFromFirebase(String cmd, String value)
   {
     // Se o valor for "LIGADA"
     if (value.equals("{\"STATUS\":\"LIGADA\"}"))
-      // Ativamos o relé (lógica inversa)
       digitalWrite(luz, HIGH);
     else // Caso contrário desativamos o relé
-      // Desativamos o relé (lógica inversa)
       digitalWrite(luz, LOW);
   }
   else
@@ -259,7 +257,6 @@ String executeCommandFromFirebase(String cmd, String value)
     if (cmd.equals("AUTOMATION/LED"))
     {
       if (value.equals("{\"STATUS\":\"LIGADO\"}")) {
-        // Ativamos o relé (lógica inversa)
         Serial.println("ON");
         digitalWrite(luzLed, HIGH);
       }
@@ -271,14 +268,12 @@ String executeCommandFromFirebase(String cmd, String value)
     else if (cmd.equals("AUTOMATION/VENTILADOR"))
     {
       if (value.equals("{\"STATUS\":\"LIGADO\"}"))
-        // Ativamos o relé (lógica inversa)
         digitalWrite(ventilador, HIGH);
       else // Caso contrário desativamos o relé
         digitalWrite(ventilador, LOW);
     } else if (cmd.equals("AUTOMATION/TOMADA"))
     {
       if (value.equals("{\"STATUS\":\"LIGADA\"}"))
-        // Ativamos o relé (lógica inversa)
         digitalWrite(tomada, HIGH);
       else // Caso contrário desativamos o relé
         digitalWrite(tomada, LOW);
