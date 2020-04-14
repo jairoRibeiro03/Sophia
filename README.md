@@ -1,2 +1,2 @@
 # Sophia
-Software de controle domótico controlado por uma entidade de IA (DialogFlow) om um microcontrolador ESP32.
+Software de controle domótico controlado por uma entidade de IA (DialogFlow) com um microcontrolador ESP32.
