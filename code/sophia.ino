@@ -31,16 +31,16 @@ DHT dht(DHTPIN, DHTTYPE); // Objeto para controle do sendor DHT11
 #define SEND_DATA_INTERVAL 5000 // Intervalo de envios de temperatura e umidade (5 segundos)
 
 // Url/Key do Firebase
-#define FIREBASE_HOST "https://getname-jsikty.firebaseio.com/"
-#define FIREBASE_AUTH "dS1vmIiIQ2XHjE1YoRJB3DKFEuziivXsI2ad208L"
+#define FIREBASE_HOST "https://*****.firebaseio.com/"
+#define FIREBASE_AUTH "**********"
 
 // Nome da rede WiFi e senha
 
-const char *ssid     = "_Online Telecom-6D0D";
-const char *password = "5034576318";
+const char *ssid     = "your ssid";
+const char *password = "your password";
 
-//const char *ssid     = "Network";
-//const char *password = "second_network";
+//const char *ssid     = "*******";
+//const char *password = "********";
 
 // Valores de temperatura e umidade que serão enviados para o Firebase
 String temp = "", humd = "";
