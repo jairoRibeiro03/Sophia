@@ -1,6 +1,6 @@
 /*
     Software de controle dispositivos (relés e sensores) por uma entidade de IA(DialogFlow) de conversação e controle domótico utilizando
-    um microcontrolador ESP32.
+    um microcontrolador ESP32. O código já se encontra adaptado para upload utilizando o protocolo de envio via WiFi (OTA).
   Autor: Jairo Ribeiro Lima - Bacharel em Ciência da Computação (UESPI)
   Período: Fevereiro de 2020 - ***
 
@@ -9,7 +9,7 @@
 #include <Arduino.h> // Lib padrão
 #include "esp_task_wdt.h" // Lib do watchdog
 #include <IOXhop_FirebaseESP32.h> // Lib do Firebase
-#include "DHT.h" // Lib do sensor de temperatura e umidade DHT11
+#include "DHT.h" // Lib do sensor de temperatura e umidade DHTxx
 
 // Libs OTA
 #include <WiFi.h> //lib para configuração do Wifi
@@ -18,7 +18,7 @@
 #include <WiFiUdp.h> //lib necessária para comunicação network
 
 #define DHTTYPE DHT11   // Define o tipo de sendor DHT, no caso o 11
-#define DHTPIN 3 // Pino do sensor DHT11
+#define DHTPIN 3        // Pino do sensor DHT11
 
 // Pinos dos relés
 #define luzLed     2
@@ -144,20 +144,20 @@ void OTA_init()
   ArduinoOTA.onStart( startOTA ); //startOTA é uma função criada para simplificar o código
 
   //define o que será executado quando o ArduinoOTA terminar
-  ArduinoOTA.onEnd( endOTA ); //endOTA é uma função criada para simplificar o código
+  ArduinoOTA.onEnd( endOTA ); 
 
   //define o que será executado quando o ArduinoOTA estiver gravando
-  ArduinoOTA.onProgress( progressOTA ); //progressOTA é uma função criada para simplificar o código
+  ArduinoOTA.onProgress( progressOTA ); 
 
   //define o que será executado quando o ArduinoOTA encontrar um erro
-  ArduinoOTA.onError( errorOTA );//errorOTA é uma função criada para simplificar o código
+  ArduinoOTA.onError( errorOTA );
 
   //inicializa ArduinoOTA
   ArduinoOTA.begin();
 
-  //exibe pronto e o ip utilizado pelo ESP
+  
   Serial.println("Ready");
-  Serial.print("IP address: ");
+  Serial.print("IP address: ");//exibe pronto e o ip utilizado pelo ESP
   Serial.println(WiFi.localIP());
 }
 //funções de exibição dos estágios de upload (start, progress, end e error) do ArduinoOTA
@@ -232,7 +232,7 @@ void readClimate()
     humd = "";
 }
 
-// Função que executa um comando ativando e desativando os relés
+// Função que executa um comando ativando e desativando os pinos
 String executeCommandFromFirebase(String cmd, String value)
 {
   // Retira a primeira barra
@@ -260,7 +260,7 @@ String executeCommandFromFirebase(String cmd, String value)
         Serial.println("ON");
         digitalWrite(luzLed, HIGH);
       }
-      else { // Caso contrário desativamos o relé
+      else { // Caso contrário desativamos o pino
         Serial.println("OFF");
         digitalWrite(luzLed, LOW);
       }
@@ -269,13 +269,13 @@ String executeCommandFromFirebase(String cmd, String value)
     {
       if (value.equals("{\"STATUS\":\"LIGADO\"}"))
         digitalWrite(ventilador, HIGH);
-      else // Caso contrário desativamos o relé
+      else // Caso contrário desativamos o pino
         digitalWrite(ventilador, LOW);
     } else if (cmd.equals("AUTOMATION/TOMADA"))
     {
       if (value.equals("{\"STATUS\":\"LIGADA\"}"))
         digitalWrite(tomada, HIGH);
-      else // Caso contrário desativamos o relé
+      else // Caso contrário desativamos o pino
         digitalWrite(tomada, LOW);
     }
     else // Se não entrou em nenhum "if" acima, retornamos uma mensagem de comando inválido

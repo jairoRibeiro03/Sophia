@@ -160,7 +160,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     console.log('database write sucessful: ' + snapshot.ref.toString());
   });
   }
-  
+  /*
   function hora(agent){
     var dt = agent.parameters.horas;
     var hr = new Date();
@@ -170,7 +170,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     var h = hr.getHours();
     agent.add('A hora no momento é :' + dt);
   }
- 
+ */
   function cad(agent){
     var newKey = admin.database().ref().child('CADASTRO').push().key;
     admin.database().ref('CADASTRO/'+newKey).set({
@@ -252,7 +252,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
   intentMap.set('GetName', saveName);
   intentMap.set('adicao', soma);
   intentMap.set('subtracao', sub);
-  intentMap.set('hora', hora);
+  //intentMap.set('hora', hora);
   intentMap.set('cadastro', cad);
   intentMap.set('raizes', raiz);
   intentMap.set('status', status);
